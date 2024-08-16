@@ -10,31 +10,35 @@
         <item name="android:background">@color/dark_mode_background</item>
     </style>
 
-    <!--    Bottom navigation background-->
-    <style name="bottom_navigation_background" parent="Widget.MaterialComponents.BottomNavigationView">
-        <item name="android:background">@color/white</item>
-        <item name="itemIconSize">25dp</item>
-        <item name="itemIconTint">@color/main_color</item>
-        <item name="itemPaddingBottom">16dp</item>
+    <!--    Bottom App Bar background-->
+    <style name="bottom_app_bar_background">
+        <item name="android:backgroundTint">@color/black</item>
+<!--        <item name="itemIconSize">25dp</item>
+"Widget.MaterialComponents.BottomNavigationView"
+-->
+<!--        <item name="itemIconTint">@color/main_color</item>-->
+<!--        <item name="itemPaddingBottom">16dp</item>-->
     </style>
 
     <!-- Define a custom shape appearance for the FAB -->
     <style name="CustomShapeAppearance" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item> <!-- 50% makes it circular -->
+        <item name="strokeColor">@color/black</item>
     </style>
 
     <!--    floating botton style-->
     <style name="floating_button">
         <item name="android:backgroundTint">@color/main_color</item>
         <item name="shapeAppearance">@style/CustomShapeAppearance</item>
-        <item name="borderWidth">2dp</item>
+        <item name="borderWidth">4dp</item>
         <item name="tint">@color/white</item>
+        <item name="elevation">5dp</item>
     </style>
 
     <!--    Text Application Style-->
     <style name="app_title_bold_22Text">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
         <item name="android:textSize">22sp</item>
     </style>
