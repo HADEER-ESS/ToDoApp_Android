@@ -1,0 +1,43 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.ToDoApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+         <item name="colorPrimary">@color/main_color</item>
+    </style>
+
+    <style name="Theme.ToDoApp" parent="Base.Theme.ToDoApp" />
+
+<!-- Background Application color   -->
+    <style name="app_background">
+        <item name="android:background">@color/light_mode_background</item>
+    </style>
+
+<!--    Bottom navigation background-->
+    <style name="bottom_navigation_background" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">@color/white</item>
+        <item name="itemIconSize">25dp</item>
+        <item name="itemIconTint">@color/main_color</item>
+        <item name="itemPaddingBottom">16dp</item>
+    </style>
+
+    <!-- Define a custom shape appearance for the FAB -->
+    <style name="CustomShapeAppearance" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item> <!-- 50% makes it circular -->
+    </style>
+
+<!--    floating botton style-->
+    <style name="floating_button">
+        <item name="android:backgroundTint">@color/main_color</item>
+        <item name="shapeAppearance">@style/CustomShapeAppearance</item>
+        <item name="borderWidth">2dp</item>
+        <item name="tint">@color/white</item>
+    </style>
+
+<!--    Text Application Style-->
+    <style name="app_title_bold_22Text">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+</resources>
