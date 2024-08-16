@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/homePageFragment"
         android:title="@string/menu"
         android:icon="@drawable/menu_inactive_icn"
+        app:showAsAction="always"
         />
 
     <item
-        android:id="@+id/setting"
+        android:id="@+id/settingFragment"
         android:title="@string/setting"
         android:icon="@drawable/setting_inactive_icn"
+        app:showAsAction="always"
         />
 
 </menu>

@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_homePageFragment_to_editScreenFragment"
             app:destination="@id/editScreenFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/editScreenFragment"
         android:name="com.example.todoapp.appstack.EditScreenFragment"
         android:label="fragment_edit_screen"
         tools:layout="@layout/fragment_edit_screen" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.todoapp.appstack.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
 </navigation>
