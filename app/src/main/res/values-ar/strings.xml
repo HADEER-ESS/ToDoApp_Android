@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_title">TO DO List</string>
-    <string name="setting">Setting</string>
-    <string name="menu">Menu</string>
+    <string name="app_title">قائمة المهام</string>
+    <string name="setting">الاعدادات</string>
+    <string name="menu">الرئيسية</string>
 </resources>
