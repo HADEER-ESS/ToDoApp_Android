@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">ToDoApp</string>
     <string name="app_title">قائمة المهام</string>
     <string name="setting">الاعدادات</string>
     <string name="menu">الرئيسية</string>
