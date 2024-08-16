@@ -57,7 +57,7 @@
             app:elevation="0dp"
             app:itemActiveIndicatorStyle="@null"
             app:itemBackground="@null"
-            app:itemIconTint="@color/main_color"
+            app:itemIconTint="@color/navigation_icons_action"
             app:labelVisibilityMode="unlabeled"
             android:padding="0dp"
             app:menu="@menu/bottom_menu"/>
