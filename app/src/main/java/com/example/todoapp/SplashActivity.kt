@@ -1,6 +1,7 @@
 package com.example.todoapp
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.enableEdgeToEdge
@@ -13,6 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySplashBinding
