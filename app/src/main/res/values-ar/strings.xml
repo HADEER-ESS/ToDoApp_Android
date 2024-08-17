@@ -6,6 +6,7 @@
     <string name="menu">الرئيسية</string>
     <string name="language_title">اللغة</string>
     <string name="mode_title">وضع</string>
+    <string name="add_new_task_title">Add new Task</string>
 
     <!--    Language Spinner Text-->
     <string-array name="language_array">

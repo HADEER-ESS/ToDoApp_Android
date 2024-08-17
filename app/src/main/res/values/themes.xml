@@ -39,6 +39,13 @@
         <item name="android:fontFamily">@font/poppins_bold</item>
         <item name="android:textSize">22sp</item>
     </style>
+    
+<!--    Add Task Fragment title-->
+    <style name="text_18_bold_title">
+        <item name="android:textColor">@color/add_task_title</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 
 
 <!--    Setting Title Spinner -->
