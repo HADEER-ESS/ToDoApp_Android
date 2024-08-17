@@ -4,4 +4,18 @@
     <string name="app_title">قائمة المهام</string>
     <string name="setting">الاعدادات</string>
     <string name="menu">الرئيسية</string>
+    <string name="language_title">اللغة</string>
+    <string name="mode_title">وضع</string>
+
+    <!--    Language Spinner Text-->
+    <string-array name="language_array">
+        <item>الانجليزية</item>
+        <item>العربية</item>
+    </string-array>
+
+    <!--    Mode Spinner Text-->
+    <string-array name="Mode_array">
+        <item>نهارى</item>
+        <item>ليلى</item>
+    </string-array>
 </resources>

@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.ToDoApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+         <item name="colorPrimary">@color/main_color</item>
     </style>
 
     <!-- Background Application color   -->
@@ -41,5 +41,17 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
         <item name="android:textSize">22sp</item>
+    </style>
+
+    <!--    Setting Title Spinner -->
+    <style name="setting_title_spinner">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/setting_title</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <!--    Spinner Item Style-->
+    <style name="spinner_text_style">
+        <item name="android:fontFamily">@font/poppins_regular</item>
     </style>
 </resources>
