@@ -1,7 +1,20 @@
 <resources>
     <string name="app_name">ToDoApp</string>
-
     <string name="app_title">TO DO List</string>
     <string name="setting">Setting</string>
     <string name="menu">Menu</string>
+    <string name="language_title">Language</string>
+    <string name="mode_title">Mode</string>
+
+    <!--    Language Spinner Text-->
+    <string-array name="language_array">
+        <item>English</item>
+        <item>Arabic</item>
+    </string-array>
+
+    <!--    Mode Spinner Text-->
+    <string-array name="Mode_array">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
 </resources>
