@@ -27,6 +27,9 @@ class MainActivity : AppCompatActivity() {
         val navController = fragment?.findNavController()
 
         storeApplicationSettingDefaults()
+        binding.fabAddTask.setOnClickListener {
+            handleAddTaskView()
+        }
 
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -94,4 +97,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    fun handleAddTaskView(){}
 }
