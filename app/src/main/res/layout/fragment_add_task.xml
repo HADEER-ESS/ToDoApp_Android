@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".appstack.AddTaskFragment"
-    tools:showIn="@layout/activity_main"
     >
-
+<!--    tools:showIn="@layout/activity_main" -->
     <TextView
+        android:id="@+id/fragment_title_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,4 +20,66 @@
         android:layout_marginTop="22dp"
         />
 
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/task_title_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/fragment_title_tv"
+        android:layout_marginHorizontal="44dp"
+        android:hint="@string/enter_your_task_title"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingHorizontal="8dp"
+        android:textColorHint="@color/text_input_hint"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/task_details_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_your_task_details"
+        android:maxLines="3"
+        android:paddingHorizontal="8dp"
+        android:layout_marginHorizontal="44dp"
+        android:layout_marginTop="27dp"
+        app:layout_constraintTop_toBottomOf="@id/task_title_input"
+        android:textColorHint="@color/text_input_hint"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/select_date_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:text="@string/select_date"
+        android:textAllCaps="false"
+        android:background="@color/white"
+        android:textColor="@color/setting_title"
+        app:layout_constraintTop_toBottomOf="@id/task_details_input"
+        app:layout_constraintStart_toStartOf="@id/task_details_input"
+        />
+
+    <TextView
+        android:id="@+id/selected_date_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/select_date_btn"
+        app:layout_constraintStart_toEndOf="@id/select_date_btn"
+        tools:text="27-6-2021"
+        style="@style/text_18_regular_title"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_task_f_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/floating_button"
+        android:src="@drawable/check_icn"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintTop_toBottomOf="@id/selected_date_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

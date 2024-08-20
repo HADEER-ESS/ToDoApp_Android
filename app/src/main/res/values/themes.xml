@@ -47,6 +47,11 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="text_18_regular_title">
+        <item name="android:textColor">@color/setting_title</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 
 <!--    Setting Title Spinner -->
     <style name="setting_title_spinner">

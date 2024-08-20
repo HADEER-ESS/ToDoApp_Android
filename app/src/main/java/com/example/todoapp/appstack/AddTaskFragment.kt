@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentAddTaskBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class AddTaskFragment : Fragment() {
+class AddTaskFragment : BottomSheetDialogFragment() {
     private lateinit var binding : FragmentAddTaskBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,5 +27,9 @@ class AddTaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.addTaskFBtn.setOnClickListener {
+            dismiss()
+        }
     }
 }

@@ -6,6 +6,7 @@
     <color name="white">#FFFFFF</color>
     <color name="main_color">#5D9CEC</color>
     <color name="gray_inactive">#C8C9CB</color>
+    <color name="text_input_hint">#9CA9A9A9</color>
     <color name="light_mode_background">#DFECDB</color>
     <color name="dark_mode_background">#060E1E</color>
 </resources>
