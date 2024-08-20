@@ -6,11 +6,13 @@ import android.view.Menu
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.example.todoapp.appstack.AddTaskFragment
 import com.example.todoapp.databinding.ActivityMainBinding
 import java.util.Locale
 import kotlin.reflect.typeOf
@@ -30,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         binding.fabAddTask.setOnClickListener {
             handleAddTaskView()
         }
+
+
 
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -98,5 +102,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun handleAddTaskView(){}
+    fun handleAddTaskView(){
+        val bottomSheetFragment = AddTaskFragment()
+        bottomSheetFragment.show(supportFragmentManager , bottomSheetFragment.tag)
+    }
 }
