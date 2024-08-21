@@ -1,5 +1,7 @@
 package com.example.todoapp.appstack
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,16 +15,22 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentHomePageBinding
 import com.google.android.material.datepicker.DayViewDecorator
 import com.kizitonwose.calendar.core.CalendarDay
+import com.kizitonwose.calendar.core.WeekDay
 import com.kizitonwose.calendar.core.atStartOfMonth
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
+import com.kizitonwose.calendar.view.CalendarView
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.ViewContainer
+import com.kizitonwose.calendar.view.WeekCalendarView
+import com.kizitonwose.calendar.view.WeekDayBinder
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
 
 
 class HomePageFragment : Fragment() {
     private lateinit var binding: FragmentHomePageBinding
+    private lateinit var weekCalenderView : WeekCalendarView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -33,6 +41,7 @@ class HomePageFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomePageBinding.inflate(inflater , container , false)
+        weekCalenderView = binding.taskCalenderView
         return binding.root
     }
 
@@ -41,46 +50,48 @@ class HomePageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         calenderViewSetup()
-
-//        binding.taskCalenderView.dayBinder = object : MonthDayBinder<CalenderDayItem>{
-//            override fun bind(container: CalenderDayItem, data: CalendarDay) {
-//                TODO("Not yet implemented")
-//            }
-//
-//            override fun create(view: View): CalenderDayItem {
-//                TODO("Not yet implemented")
-//            }
-//
-//        }
-
-
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun calenderViewSetup(){
-        val currentDate = LocalDate.now()
-        val currentMonth = YearMonth.now()
-        val startDate = currentMonth.minusMonths(100).atStartOfMonth() // Adjust as needed
-        val endDate = currentMonth.plusMonths(100).atEndOfMonth() // Adjust as needed
-        val firstDayOfWeek = firstDayOfWeekFromLocale() // Available from the library
-        binding.taskCalenderView.setup(startDate, endDate, firstDayOfWeek)
-        binding.taskCalenderView.scrollToWeek(currentDate)
+        val startDate = LocalDate.now()// Adjust as needed
+        val endDate = startDate.plusDays(30) // Adjust as needed
+        val firstDayOfWeek = LocalDate.now().dayOfWeek // Today (currend day) as a day of week
+        weekCalenderView.setup(startDate, endDate , firstDayOfWeek)
+        weekCalenderView.scrollToDate(LocalDate.now())
         createCalenderBinding()
     }
 
     fun createCalenderBinding(){
+        //calender adaptor
+        weekCalenderView.dayBinder =
+            object : WeekDayBinder<DayViewContainer> {
+                @RequiresApi(Build.VERSION_CODES.O)
+            override fun bind(container: DayViewContainer, data: WeekDay) {
+                val dayText = data.date.dayOfWeek.name.take(1)
+                val dayNumber = data.date.dayOfMonth.toString()
+                println("data.date = ${data} , text ${dayText} , dayNumber $dayNumber")
+                container.dayTitleView.text =  dayText
+                container.dayNumberView.text = dayNumber
 
-//        binding.taskCalenderView.dayBinder = object : MonthDayBinder<CalenderDayContainer>{
-//            override fun bind(container: CalenderDayContainer, data: CalendarDay) {
-//                container.dayContainerName.text = data.date.dayOfWeek.toString().substring(0,3)
-//                container.dayContainerValue.text = data.date.dayOfMonth.toString()
-//            }
+                //if date is today
+                if(data.date == LocalDate.now()){
+                    container.dayContainer.backgroundTintList = ColorStateList.valueOf(Color.BLUE)
+                }
+                else{
+                    container.dayContainer.backgroundTintList = ColorStateList.valueOf(Color.WHITE)
+                }
+            }
 
-//            override fun create(view: View): CalenderDayContainer {
-//                return CalenderDayContainer(view)
-//            }
+            override fun create(view: View): DayViewContainer {
+                return  DayViewContainer(view)
+            }
 
-        }
+            }
+
+
     }
+
+
+//Close
 }
