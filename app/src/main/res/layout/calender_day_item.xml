@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/day_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:backgroundTint="@color/white"
+    android:layout_marginHorizontal="8dp"
+    android:outlineAmbientShadowColor="@color/gray_inactive"
+    app:cardCornerRadius="5dp"
+    android:elevation="5dp"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="10dp"
+        >
+        <TextView
+            android:id="@+id/day_text_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/text_18_bold_title"
+            tools:text="Mon"
+            />
+        <TextView
+            android:id="@+id/day_number_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:paddingVertical="7dp"
+            app:layout_constraintTop_toBottomOf="@id/day_text_tv"
+            app:layout_constraintStart_toStartOf="@id/day_text_tv"
+            app:layout_constraintEnd_toEndOf="@id/day_text_tv"
+            style="@style/text_18_bold_title"
+            tools:text="1"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

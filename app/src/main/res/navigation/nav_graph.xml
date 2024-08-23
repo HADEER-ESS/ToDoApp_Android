@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homePageFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
     </fragment>
     <fragment
         android:id="@+id/editScreenFragment"
@@ -27,4 +30,9 @@
         android:name="com.example.todoapp.appstack.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/addTaskFragment"
+        android:name="com.example.todoapp.appstack.AddTaskFragment"
+        android:label="fragment_add_task"
+        tools:layout="@layout/fragment_add_task" />
 </navigation>

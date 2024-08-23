@@ -1,33 +1,51 @@
 package com.example.todoapp
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.example.todoapp.appstack.AddTaskFragment
+import com.example.todoapp.database.Task
+import com.example.todoapp.database.TaskDatabase
 import com.example.todoapp.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Locale
 import kotlin.reflect.typeOf
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val fragment = supportFragmentManager.findFragmentById(binding.fragmentIncludeTag.navHostFragmentContainer.id)
-        val navController = fragment?.findNavController()
+        navController = fragment?.findNavController()!!
+        handleBottomTabsNavigation()
 
         storeApplicationSettingDefaults()
+        binding.fabAddTask.setOnClickListener {
+            handleAddTaskView()
+        }
 
+    }
+
+
+    private fun handleBottomTabsNavigation() {
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.homePageFragment -> {
@@ -56,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun storeApplicationSettingDefaults(){
+    private fun storeApplicationSettingDefaults(){
 
         val appMode = (
                 resources.configuration.uiMode and
@@ -93,5 +111,10 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    private fun handleAddTaskView(){
+        val bottomSheetFragment = AddTaskFragment()
+        bottomSheetFragment.show(supportFragmentManager , bottomSheetFragment.tag)
     }
 }
