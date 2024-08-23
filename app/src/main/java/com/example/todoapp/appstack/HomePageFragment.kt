@@ -12,6 +12,8 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.todoapp.R
+import com.example.todoapp.database.Task
+import com.example.todoapp.database.TaskDatabase
 import com.example.todoapp.databinding.FragmentHomePageBinding
 import com.google.android.material.datepicker.DayViewDecorator
 import com.kizitonwose.calendar.core.CalendarDay
@@ -23,6 +25,9 @@ import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import com.kizitonwose.calendar.view.WeekCalendarView
 import com.kizitonwose.calendar.view.WeekDayBinder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -48,8 +53,24 @@ class HomePageFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initializeFragment()
         calenderViewSetup()
+    }
+
+    private fun initializeFragment() {
+        //create instance from database
+        val taskDatabase = TaskDatabase.getInstance(requireContext())
+        val taskDao = taskDatabase.taskDao()
+
+        //get all tasks from database
+        CoroutineScope(Dispatchers.IO).launch {
+            val tasks = taskDao.getAllTasks()
+            applyDataToScreen(tasks)
+        }
+    }
+
+    private fun applyDataToScreen(tasks: List<Task>) {
+        println("data base tasks $tasks")
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -62,7 +83,7 @@ class HomePageFragment : Fragment() {
         createCalenderBinding()
     }
 
-    fun createCalenderBinding(){
+    private fun createCalenderBinding(){
         //calender adaptor
         weekCalenderView.dayBinder =
             object : WeekDayBinder<DayViewContainer> {
