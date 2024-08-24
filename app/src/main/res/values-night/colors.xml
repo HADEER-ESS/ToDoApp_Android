@@ -3,6 +3,7 @@
     <color name="white">#141922</color>
     <color name="setting_title">#FFFFFF</color>
     <color name="main_color">#5D9CEC</color>
+    <color name="done_green">#61E757</color>
     <color name="gray_inactive">#C8C9CB</color>
     <color name="text_input_hint">#CDCACA</color>
     <color name="light_mode_background">#DFECDB</color>

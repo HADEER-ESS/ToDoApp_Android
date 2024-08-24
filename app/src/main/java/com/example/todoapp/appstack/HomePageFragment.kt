@@ -8,12 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.database.Task
 import com.example.todoapp.database.TaskDatabase
+import com.example.todoapp.database.TaskViewModel
 import com.example.todoapp.databinding.FragmentHomePageBinding
 import com.google.android.material.datepicker.DayViewDecorator
 import com.kizitonwose.calendar.core.CalendarDay
@@ -27,15 +31,21 @@ import com.kizitonwose.calendar.view.WeekCalendarView
 import com.kizitonwose.calendar.view.WeekDayBinder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
 
 
-class HomePageFragment : Fragment() {
+class HomePageFragment : Fragment() , OnItemClicklisnter {
     private lateinit var binding: FragmentHomePageBinding
     private lateinit var weekCalenderView : WeekCalendarView
+    private lateinit var taskViewModel: TaskViewModel
+
+    private lateinit var tasksRecyclerView: RecyclerView
+    private lateinit var tasksShowAdaptor: TasksShowAdaptor
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -47,6 +57,8 @@ class HomePageFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentHomePageBinding.inflate(inflater , container , false)
         weekCalenderView = binding.taskCalenderView
+        tasksRecyclerView = binding.tasksRecyclerView
+        tasksShowAdaptor = TasksShowAdaptor(this)
         return binding.root
     }
 
@@ -61,16 +73,19 @@ class HomePageFragment : Fragment() {
         //create instance from database
         val taskDatabase = TaskDatabase.getInstance(requireContext())
         val taskDao = taskDatabase.taskDao()
+        taskViewModel = TaskViewModel(taskDao)
+        //link recycler view with adaptor
+        tasksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         //get all tasks from database
-        CoroutineScope(Dispatchers.IO).launch {
-            val tasks = taskDao.getAllTasks()
-            applyDataToScreen(tasks)
-        }
+        applyDataToScreen()
     }
 
-    private fun applyDataToScreen(tasks: List<Task>) {
-        println("data base tasks $tasks")
+    private fun applyDataToScreen() {
+        taskViewModel.allTasks.observe(viewLifecycleOwner){
+            tasks -> tasksShowAdaptor.submitList(tasks)
+        }
+        tasksRecyclerView.adapter = tasksShowAdaptor
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -113,6 +128,8 @@ class HomePageFragment : Fragment() {
 
     }
 
+    override fun onClickLisnter(data: Task) {
+        taskViewModel.updateTaskInfo(data)
+    }
 
-//Close
 }
