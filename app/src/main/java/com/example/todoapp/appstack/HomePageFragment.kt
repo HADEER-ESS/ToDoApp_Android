@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +37,8 @@ import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
+import java.time.format.TextStyle
+import java.util.Locale
 
 
 class HomePageFragment : Fragment() , OnItemClicklisnter {
@@ -90,21 +93,27 @@ class HomePageFragment : Fragment() , OnItemClicklisnter {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun calenderViewSetup(){
-        val startDate = LocalDate.now()// Adjust as needed
-        val endDate = startDate.plusDays(30) // Adjust as needed
+        val currentMonth = YearMonth.now()
+        val startDate = currentMonth.minusMonths(100).atStartOfMonth() // Adjust as needed
+        val endDate = currentMonth.plusMonths(100).atEndOfMonth() // Adjust as needed
         val firstDayOfWeek = LocalDate.now().dayOfWeek // Today (currend day) as a day of week
         weekCalenderView.setup(startDate, endDate , firstDayOfWeek)
-        weekCalenderView.scrollToDate(LocalDate.now())
+        weekCalenderView.scrollToWeek(LocalDate.now())
         createCalenderBinding()
     }
 
     private fun createCalenderBinding(){
+        val blueColor = ContextCompat.getColor(requireContext(), R.color.main_color)
+        val blackColor = ContextCompat.getColor(requireContext() , R.color.black)
         //calender adaptor
         weekCalenderView.dayBinder =
             object : WeekDayBinder<DayViewContainer> {
                 @RequiresApi(Build.VERSION_CODES.O)
             override fun bind(container: DayViewContainer, data: WeekDay) {
-                val dayText = data.date.dayOfWeek.name.take(1)
+                val dayText = data.date.dayOfWeek.getDisplayName(
+                    TextStyle.SHORT,
+                    Locale.getDefault()
+                )
                 val dayNumber = data.date.dayOfMonth.toString()
                 println("data.date = ${data} , text ${dayText} , dayNumber $dayNumber")
                 container.dayTitleView.text =  dayText
@@ -112,10 +121,12 @@ class HomePageFragment : Fragment() , OnItemClicklisnter {
 
                 //if date is today
                 if(data.date == LocalDate.now()){
-                    container.dayContainer.backgroundTintList = ColorStateList.valueOf(Color.BLUE)
+                    container.dayTitleView.setTextColor(blueColor)
+                    container.dayNumberView.setTextColor(blueColor)
                 }
                 else{
-                    container.dayContainer.backgroundTintList = ColorStateList.valueOf(Color.WHITE)
+                    container.dayTitleView.setTextColor(blackColor)
+                    container.dayNumberView.setTextColor(blackColor)
                 }
             }
 
