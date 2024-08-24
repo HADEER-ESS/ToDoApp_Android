@@ -53,6 +53,13 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+<!--    Task Title Style-->
+    <style name="text_18_bold_blue">
+        <item name="textFillColor">@color/main_color</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
 <!--    Setting Title Spinner -->
     <style name="setting_title_spinner">
         <item name="android:textSize">14sp</item>

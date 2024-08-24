@@ -22,4 +22,5 @@
     <string name="enter_your_task_details">enter your task details</string>
     <string name="enter_your_task_title">enter your task title</string>
     <string name="select_date">Select Date</string>
+    <string name="done_txt">Done !</string>
 </resources>
