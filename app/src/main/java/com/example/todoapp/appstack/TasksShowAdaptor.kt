@@ -1,8 +1,6 @@
 package com.example.todoapp.appstack
 
-import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
@@ -10,17 +8,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.database.Task
-import com.example.todoapp.database.TaskViewModel
 import com.example.todoapp.databinding.TaskItemViewBinding
 
 class TasksShowAdaptor(private val lisnter : OnItemClicklisnter): ListAdapter<Task, TasksShowAdaptor.TasksViewHolder>(TaskDiffCallback()) {
 
-    class TasksViewHolder(val binding : TaskItemViewBinding) : RecyclerView.ViewHolder(binding.root){
-        val taskCard = binding.taskItemCard
+    class TasksViewHolder(binding : TaskItemViewBinding) : RecyclerView.ViewHolder(binding.root){
         val taskTitle = binding.taskTitleTv
         val taskDate = binding.taskDateTv
         val tasksideMark = binding.cardMarkView
         val checkbtn = binding.taskDoneBtn
+        val deleteTaskBtnImage = binding.leftView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksViewHolder {
@@ -41,6 +38,7 @@ class TasksShowAdaptor(private val lisnter : OnItemClicklisnter): ListAdapter<Ta
         holder.taskDate.text = task.date
 
         holder.checkbtn.setOnClickListener { updateDataCheck( position) }
+        holder.deleteTaskBtnImage.setOnClickListener { deleteTaskItem(task) }
 
         if(task.isDone){
             holder.tasksideMark.setBackgroundResource(R.color.done_green)
@@ -61,9 +59,14 @@ class TasksShowAdaptor(private val lisnter : OnItemClicklisnter): ListAdapter<Ta
         val task = getItem(position)
         task.isDone = !task.isDone
 
-        lisnter.onClickLisnter(task)
+        lisnter.updateTaskComplete(task)
         notifyItemChanged(position)
     }
+
+    fun deleteTaskItem(task : Task){
+        lisnter.deleteTask(task)
+    }
+
 }
 
 // DiffUtil Callback

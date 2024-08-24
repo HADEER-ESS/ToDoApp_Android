@@ -139,8 +139,11 @@ class HomePageFragment : Fragment() , OnItemClicklisnter {
 
     }
 
-    override fun onClickLisnter(data: Task) {
+    override fun updateTaskComplete(data: Task) {
         taskViewModel.updateTaskInfo(data)
     }
 
+    override fun deleteTask(data: Task) {
+        taskViewModel.deleteTask(data)
+    }
 }
