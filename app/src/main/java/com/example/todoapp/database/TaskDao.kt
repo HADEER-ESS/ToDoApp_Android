@@ -5,11 +5,12 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
     @Query("SELECT * FROM Task")
-    suspend fun getAllTasks() : List<Task>
+    fun getAllTasks() : Flow<List<Task>>
 
     @Query("SELECT * FROM Task WHERE taskId LIKE :id")
     suspend fun getTaskById(id : Int) : Task
