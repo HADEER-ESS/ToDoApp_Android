@@ -10,10 +10,16 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
+import com.example.todoapp.database.Task
+import com.example.todoapp.database.TaskDao
+import com.example.todoapp.database.TaskDatabase
 import com.example.todoapp.databinding.FragmentAddTaskBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.time.Year
 import java.util.Date
@@ -26,6 +32,9 @@ class AddTaskFragment : BottomSheetDialogFragment() {
 
     private var taskName : String = ""
     private var taskDetails : String = ""
+    private var selectedTaskate : String = ""
+
+    private var taskDao : TaskDao? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +54,9 @@ class AddTaskFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeRoom()
         binding.addTaskFBtn.setOnClickListener {
+            addNewTask()
             dismiss()
         }
 
@@ -54,6 +65,26 @@ class AddTaskFragment : BottomSheetDialogFragment() {
         taskDescription.setOnFocusChangeListener { v, hasFocus -> taskDescriptionHandle(hasFocus) }
 
         taskData.setOnClickListener { taskDateSelection() }
+    }
+
+    private fun initializeRoom(){
+        //create instance from database
+        val taskDatabase = TaskDatabase.getInstance(requireContext())
+        taskDao = taskDatabase.taskDao()
+    }
+
+    private fun addNewTask() {
+        //take => task title
+        //      => task desc ?= ""
+        //      => task date
+        //      => task status
+        val task = Task(0,taskName , taskDetails , false , selectedTaskate)
+        println("task $task")
+        CoroutineScope(Dispatchers.IO).launch {
+            taskDao?.insertTask(task)
+            println("inserted done")
+        }
+
     }
 
     fun taskTitleHanlde(focus : Boolean){
@@ -85,6 +116,7 @@ class AddTaskFragment : BottomSheetDialogFragment() {
         datePickerDialog.addOnPositiveButtonClickListener {
             val date = Date(it)
             val formate = sdf.format(date)
+            selectedTaskate = formate
             println("date picker ${formate}")
         }
         datePickerDialog.show(parentFragmentManager , "materialDatePicker")

@@ -30,7 +30,6 @@
                 android:text="@string/app_title"
                 style="@style/app_title_bold_22Text"
                 android:paddingVertical="16dp"
-                android:layout_marginBottom="90dp"
                 />
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -39,7 +38,7 @@
         android:id="@+id/bottom_app_bar"
         android:layout_width="match_parent"
         style="@style/bottom_app_bar_background"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_gravity="bottom"
         app:fabAnchorMode="cradle"
         android:fadingEdgeLength="13dp"
@@ -52,7 +51,9 @@
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="bottom"
+            android:layout_margin="0dp"
+            android:clipToPadding="true"
             app:backgroundTint="@android:color/transparent"
             app:elevation="0dp"
             app:itemActiveIndicatorStyle="@null"
