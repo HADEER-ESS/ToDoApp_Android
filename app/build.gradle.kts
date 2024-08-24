@@ -47,7 +47,9 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
-    //Live data
+    //Swip Layout
+    implementation(libs.swipelayout)
+    
     // LiveData
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

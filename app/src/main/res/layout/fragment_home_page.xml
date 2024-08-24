@@ -18,19 +18,23 @@
             android:layout_height="65dp"
             android:background="@color/main_color"
             />
-        <com.kizitonwose.calendar.view.WeekCalendarView
-            android:id="@+id/task_calender_view"
-            android:orientation="horizontal"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            tools:itemCount="4"
-            app:cv_daySize="rectangle"
-            app:cv_dayViewResource="@layout/calender_day_item"
-            />
+            android:background="@color/white"
+            android:layout_marginHorizontal="25dp"
+            >
+            <com.kizitonwose.calendar.view.WeekCalendarView
+                android:id="@+id/task_calender_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:cv_daySize="rectangle"
+                app:cv_dayViewResource="@layout/calender_day_item"
+                />
+        </LinearLayout>
+
     </FrameLayout>
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasks_recycler_view"
         android:layout_width="match_parent"

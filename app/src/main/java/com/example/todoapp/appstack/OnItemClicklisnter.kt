@@ -4,5 +4,6 @@ import android.view.View
 import com.example.todoapp.database.Task
 
 interface OnItemClicklisnter {
-    fun onClickLisnter(data : Task)
+    fun updateTaskComplete(data : Task)
+    fun deleteTask(data : Task)
 }

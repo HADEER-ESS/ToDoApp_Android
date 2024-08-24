@@ -4,6 +4,7 @@
     <color name="add_task_title">#383838</color>
     <color name="setting_title">#303030</color>
     <color name="white">#FFFFFF</color>
+    <color name="red_delete_color">#EC4B4B</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="done_green">#61E757</color>
     <color name="main_color">#5D9CEC</color>

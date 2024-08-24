@@ -12,7 +12,28 @@
     app:cardCornerRadius="15dp"
     app:cardElevation="10dp">
 
+    <com.zerobranch.layout.SwipeLayout
+        android:id="@+id/swipe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:draggedItem="@id/drag_item"
+        app:leftItem="@id/left_view"
+        app:isFreeDragAfterOpen="true"
+        app:isTogether="true"
+        app:swipeDirection="right">
+
+        <ImageView
+            android:id="@+id/left_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/red_delete_color"
+            android:gravity="center"
+            android:paddingEnd="24dp"
+            android:paddingStart="24dp"
+            android:src="@drawable/delete_icn"/>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/drag_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="20dp"
@@ -79,6 +100,5 @@
             android:paddingStart="30dp"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+    </com.zerobranch.layout.SwipeLayout>
 </androidx.cardview.widget.CardView>
