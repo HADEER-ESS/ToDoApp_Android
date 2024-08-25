@@ -12,8 +12,8 @@ interface TaskDao {
     @Query("SELECT * FROM Task")
     fun getAllTasks() : Flow<List<Task>>
 
-    @Query("SELECT * FROM Task WHERE taskId LIKE :id")
-    suspend fun getTaskById(id : Int) : Task
+    @Query("SELECT * FROM Task WHERE date LIKE :taskDate")
+    suspend fun getTaskByDate(taskDate : String) : Task
 
     @Insert
     suspend fun insertTask(vararg task : Task)
