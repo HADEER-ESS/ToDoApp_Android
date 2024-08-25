@@ -7,6 +7,7 @@ import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
@@ -29,6 +30,7 @@ class AddTaskFragment : BottomSheetDialogFragment() {
     private lateinit var taskTitle : TextInputEditText
     private lateinit var taskDescription : TextInputEditText
     private lateinit var taskData : AppCompatButton
+    private lateinit var dateTextView : TextView
 
     private var taskName : String = ""
     private var taskDetails : String = ""
@@ -49,6 +51,7 @@ class AddTaskFragment : BottomSheetDialogFragment() {
         taskTitle = binding.taskTitleInput
         taskDescription = binding.taskDetailsInput
         taskData = binding.selectDateBtn
+        dateTextView = binding.selectedDateTv
         return binding.root
     }
 
@@ -117,7 +120,8 @@ class AddTaskFragment : BottomSheetDialogFragment() {
             val date = Date(it)
             val formate = sdf.format(date)
             selectedTaskate = formate
-            println("date picker ${formate}")
+//            println("date picker ${formate}")
+            dateTextView.text = formate
         }
         datePickerDialog.show(parentFragmentManager , "materialDatePicker")
     }
