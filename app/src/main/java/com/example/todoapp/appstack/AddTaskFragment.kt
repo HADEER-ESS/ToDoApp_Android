@@ -14,6 +14,7 @@ import androidx.core.widget.doAfterTextChanged
 import com.example.todoapp.database.Task
 import com.example.todoapp.database.TaskDao
 import com.example.todoapp.database.TaskDatabase
+import com.example.todoapp.database.TaskViewModel
 import com.example.todoapp.databinding.FragmentAddTaskBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -36,7 +37,8 @@ class AddTaskFragment : BottomSheetDialogFragment() {
     private var taskDetails : String = ""
     private var selectedTaskate : String = ""
 
-    private var taskDao : TaskDao? = null
+    lateinit private var taskViewModel : TaskViewModel
+    //lateinit private var taskDao : TaskDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +75,8 @@ class AddTaskFragment : BottomSheetDialogFragment() {
     private fun initializeRoom(){
         //create instance from database
         val taskDatabase = TaskDatabase.getInstance(requireContext())
-        taskDao = taskDatabase.taskDao()
+        val taskDao = taskDatabase.taskDao()
+        taskViewModel = TaskViewModel(taskDao)
     }
 
     private fun addNewTask() {
@@ -83,10 +86,11 @@ class AddTaskFragment : BottomSheetDialogFragment() {
         //      => task status
         val task = Task(0,taskName , taskDetails , false , selectedTaskate)
         println("task $task")
-        CoroutineScope(Dispatchers.IO).launch {
-            taskDao?.insertTask(task)
-            println("inserted done")
-        }
+        taskViewModel.insertTask(task)
+//        CoroutineScope(Dispatchers.IO).launch {
+//            taskDao?.insertTask(task)
+//            println("inserted done")
+//        }
 
     }
 
