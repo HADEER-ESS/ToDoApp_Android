@@ -79,6 +79,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/select_date_btn"
         app:layout_constraintStart_toEndOf="@id/select_date_btn"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:text="27-6-2021"
         style="@style/text_18_regular_title"
         />

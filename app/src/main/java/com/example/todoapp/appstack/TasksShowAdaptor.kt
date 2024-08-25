@@ -1,7 +1,9 @@
 package com.example.todoapp.appstack
 
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,9 +12,13 @@ import com.example.todoapp.R
 import com.example.todoapp.database.Task
 import com.example.todoapp.databinding.TaskItemViewBinding
 
-class TasksShowAdaptor(private val lisnter : OnItemClicklisnter): ListAdapter<Task, TasksShowAdaptor.TasksViewHolder>(TaskDiffCallback()) {
+class TasksShowAdaptor(
+    private val lisnter : OnItemClicklisnter,
+    private val onNavigate : (Task) -> Unit
+): ListAdapter<Task, TasksShowAdaptor.TasksViewHolder>(TaskDiffCallback()) {
 
     class TasksViewHolder(binding : TaskItemViewBinding) : RecyclerView.ViewHolder(binding.root){
+        val taskCardItem : CardView = binding.dragItem
         val taskTitle = binding.taskTitleTv
         val taskDate = binding.taskDateTv
         val tasksideMark = binding.cardMarkView
@@ -39,6 +45,9 @@ class TasksShowAdaptor(private val lisnter : OnItemClicklisnter): ListAdapter<Ta
 
         holder.checkbtn.setOnClickListener { updateDataCheck( position) }
         holder.deleteTaskBtnImage.setOnClickListener { deleteTaskItem(task) }
+        holder.taskCardItem.setOnClickListener {
+            onNavigate(task)
+        }
 
         if(task.isDone){
             holder.tasksideMark.setBackgroundResource(R.color.done_green)
@@ -46,7 +55,7 @@ class TasksShowAdaptor(private val lisnter : OnItemClicklisnter): ListAdapter<Ta
             holder.taskTitle.setTextColor(greenColor)
             holder.checkbtn.setBackgroundResource(R.color.transparent)
             holder.checkbtn.text = context.getString(R.string.done_txt)
-            holder.checkbtn.setTextSize(22f)
+            holder.checkbtn.textSize = 22f
             holder.checkbtn.setTextColor(greenColor)
         }
         else{
@@ -55,7 +64,7 @@ class TasksShowAdaptor(private val lisnter : OnItemClicklisnter): ListAdapter<Ta
         }
     }
 
-    fun updateDataCheck(position: Int){
+    private fun updateDataCheck(position: Int){
         val task = getItem(position)
         task.isDone = !task.isDone
 
@@ -63,7 +72,7 @@ class TasksShowAdaptor(private val lisnter : OnItemClicklisnter): ListAdapter<Ta
         notifyItemChanged(position)
     }
 
-    fun deleteTaskItem(task : Task){
+    private fun deleteTaskItem(task : Task){
         lisnter.deleteTask(task)
     }
 

@@ -33,3 +33,9 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 }
+
+//TODO(
+// -show tasks based on selected date
+// -prevent user from select old date (from today)
+// -finish Edit Task screen
+// ) //

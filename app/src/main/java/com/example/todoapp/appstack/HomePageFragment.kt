@@ -61,8 +61,16 @@ class HomePageFragment : Fragment() , OnItemClicklisnter {
         binding = FragmentHomePageBinding.inflate(inflater , container , false)
         weekCalenderView = binding.taskCalenderView
         tasksRecyclerView = binding.tasksRecyclerView
-        tasksShowAdaptor = TasksShowAdaptor(this)
+        tasksShowAdaptor = TasksShowAdaptor(this , ::handleNavigationTask)
         return binding.root
+    }
+
+    private fun handleNavigationTask(taskData : Task){
+        val bundleData = Bundle().apply {
+            putParcelable("task_data" , taskData)
+        }
+        println("clicked task data $taskData")
+        findNavController().navigate(R.id.action_homePageFragment_to_editScreenFragment , bundleData)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -71,6 +79,8 @@ class HomePageFragment : Fragment() , OnItemClicklisnter {
         initializeFragment()
         calenderViewSetup()
     }
+
+
 
     private fun initializeFragment() {
         //create instance from database
@@ -146,4 +156,5 @@ class HomePageFragment : Fragment() , OnItemClicklisnter {
     override fun deleteTask(data: Task) {
         taskViewModel.deleteTask(data)
     }
+
 }
