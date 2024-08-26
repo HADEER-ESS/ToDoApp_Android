@@ -1,15 +1,11 @@
 package com.example.todoapp.appstack
 
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.AppCompatButton
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -20,23 +16,13 @@ import com.example.todoapp.database.Task
 import com.example.todoapp.database.TaskDatabase
 import com.example.todoapp.database.TaskViewModel
 import com.example.todoapp.databinding.FragmentHomePageBinding
-import com.google.android.material.datepicker.DayViewDecorator
-import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.WeekDay
 import com.kizitonwose.calendar.core.atStartOfMonth
-import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
-import com.kizitonwose.calendar.view.CalendarView
-import com.kizitonwose.calendar.view.MonthDayBinder
-import com.kizitonwose.calendar.view.ViewContainer
 import com.kizitonwose.calendar.view.WeekCalendarView
 import com.kizitonwose.calendar.view.WeekDayBinder
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
-import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
+import java.time.ZoneId
 import java.time.format.TextStyle
 import java.util.Locale
 
@@ -82,6 +68,7 @@ class HomePageFragment : Fragment() , OnItemClicklisnter {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initializeFragment() {
         //create instance from database
         val taskDatabase = TaskDatabase.getInstance(requireContext())
@@ -91,13 +78,26 @@ class HomePageFragment : Fragment() , OnItemClicklisnter {
         tasksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         //get all tasks from database
-        applyDataToScreen()
+        val todayDate = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toEpochSecond()
+        applyDataToScreen(LocalDate.now())
     }
 
-    private fun applyDataToScreen() {
-        taskViewModel.allTasks.observe(viewLifecycleOwner){
-            tasks -> tasksShowAdaptor.submitList(tasks)
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun applyDataToScreen(date : LocalDate) {
+
+        println("view will sended date $date")
+        val startDate = date.atStartOfDay()
+        val dateMili = startDate.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        taskViewModel.getTaskByDate(dateMili)?.observe(viewLifecycleOwner){
+            tasks ->
+            println("selected date tasks data $tasks")
+            tasksShowAdaptor.submitList(tasks)
         }
+
+//        println("selected date task data $tasks")
+//        taskViewModel.allTasks.observe(viewLifecycleOwner){
+//            tasks -> tasksShowAdaptor.submitList(tasks)
+//        }
         tasksRecyclerView.adapter = tasksShowAdaptor
     }
 
@@ -109,12 +109,15 @@ class HomePageFragment : Fragment() , OnItemClicklisnter {
         val firstDayOfWeek = LocalDate.now().dayOfWeek // Today (currend day) as a day of week
         weekCalenderView.setup(startDate, endDate , firstDayOfWeek)
         weekCalenderView.scrollToWeek(LocalDate.now())
-        createCalenderBinding()
+        createCalenderBinding(LocalDate.now())
     }
 
-    private fun createCalenderBinding(){
+
+    private fun createCalenderBinding(selectedDate: LocalDate) {
         val blueColor = ContextCompat.getColor(requireContext(), R.color.main_color)
         val blackColor = ContextCompat.getColor(requireContext() , R.color.black)
+        println("selected to bind date $selectedDate")
+
         //calender adaptor
         weekCalenderView.dayBinder =
             object : WeekDayBinder<DayViewContainer> {
@@ -125,12 +128,12 @@ class HomePageFragment : Fragment() , OnItemClicklisnter {
                     Locale.getDefault()
                 )
                 val dayNumber = data.date.dayOfMonth.toString()
-                println("data.date = ${data} , text ${dayText} , dayNumber $dayNumber")
+//                println("data.date = ${data} , text ${dayText} , dayNumber $dayNumber")
                 container.dayTitleView.text =  dayText
                 container.dayNumberView.text = dayNumber
 
                 //if date is today
-                if(data.date == LocalDate.now()){
+                if(data.date == selectedDate){
                     container.dayTitleView.setTextColor(blueColor)
                     container.dayNumberView.setTextColor(blueColor)
                 }
@@ -138,6 +141,12 @@ class HomePageFragment : Fragment() , OnItemClicklisnter {
                     container.dayTitleView.setTextColor(blackColor)
                     container.dayNumberView.setTextColor(blackColor)
                 }
+
+                    container.dayContainer.setOnClickListener {
+                        println("view clicked now ${data.date}"  )
+                        createCalenderBinding(data.date)
+                        applyDataToScreen(data.date)
+                    }
             }
 
             override fun create(view: View): DayViewContainer {

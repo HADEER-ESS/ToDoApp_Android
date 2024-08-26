@@ -13,5 +13,5 @@ data class Task(
     @ColumnInfo val taskTitle : String,
     @ColumnInfo val taskDetails : String?,
     @ColumnInfo var isDone : Boolean = false,
-    @ColumnInfo val date : String
+    @ColumnInfo val date : Long
 ) : Parcelable
