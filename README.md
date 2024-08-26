@@ -12,6 +12,7 @@
 <li>CoroutineScope</li>
 <li>RecyclerView</li>
 <li>Calender (WeekCalendarView)</li>
+<li>Date Picker Dialog</li>
 <li>SwipeLayout</li>
 <li>Room Databse</li>
 <li>View Model</li>
