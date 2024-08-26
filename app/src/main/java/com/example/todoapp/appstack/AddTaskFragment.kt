@@ -17,6 +17,8 @@ import com.example.todoapp.database.TaskDatabase
 import com.example.todoapp.database.TaskViewModel
 import com.example.todoapp.databinding.FragmentAddTaskBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.CoroutineScope
@@ -32,10 +34,11 @@ class AddTaskFragment : BottomSheetDialogFragment() {
     private lateinit var taskDescription : TextInputEditText
     private lateinit var taskData : AppCompatButton
     private lateinit var dateTextView : TextView
+    private val calender = Calendar.getInstance()
 
     private var taskName : String = ""
     private var taskDetails : String = ""
-    private var selectedTaskate : String = ""
+    private var selectedTaskate : Long = 0
 
     lateinit private var taskViewModel : TaskViewModel
     //lateinit private var taskDao : TaskDao
@@ -116,16 +119,28 @@ class AddTaskFragment : BottomSheetDialogFragment() {
 
     fun taskDateSelection(){
         val sdf = SimpleDateFormat("dd/MM/yyyy")
+
+        // Create a date validator that allows only dates from today onwards
+        val dateValidator = DateValidatorPointForward.from(calender.timeInMillis)
+
+        //create Constrain Builder to prevent user from selection old date from calender
+        val constraintsBuilder = CalendarConstraints.Builder()
+            .setStart(calender.timeInMillis)
+            .setValidator(dateValidator)
+
         val datePickerDialog =  MaterialDatePicker.Builder.datePicker()
             .setTextInputFormat(sdf)
+            .setSelection(calender.timeInMillis)
+            .setCalendarConstraints(constraintsBuilder.build())
             .build()
 
         datePickerDialog.addOnPositiveButtonClickListener {
             val date = Date(it)
-            val formate = sdf.format(date)
-            selectedTaskate = formate
-//            println("date picker ${formate}")
-            dateTextView.text = formate
+            val stringDateFormate = sdf.format(date)
+            val longFormate = sdf.parse(stringDateFormate)
+            selectedTaskate = longFormate.time
+//            println("date picker ${selectedTaskate}")
+            dateTextView.text = stringDateFormate.toString()
         }
         datePickerDialog.show(parentFragmentManager , "materialDatePicker")
     }

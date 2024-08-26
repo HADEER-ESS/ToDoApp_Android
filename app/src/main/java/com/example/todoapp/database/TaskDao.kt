@@ -6,6 +6,8 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
+import java.sql.Date
+import java.time.LocalDate
 
 @Dao
 interface TaskDao {
@@ -13,7 +15,7 @@ interface TaskDao {
     fun getAllTasks() : Flow<List<Task>>
 
     @Query("SELECT * FROM Task WHERE date LIKE :taskDate")
-    suspend fun getTaskByDate(taskDate : String) : Task
+    fun getTaskByDate(taskDate : Long) : Flow<List<Task>>
 
     @Insert
     suspend fun insertTask(vararg task : Task)

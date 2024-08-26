@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.database.Task
 import com.example.todoapp.databinding.TaskItemViewBinding
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class TasksShowAdaptor(
     private val lisnter : OnItemClicklisnter,
@@ -41,7 +44,9 @@ class TasksShowAdaptor(
         val blueColor = ContextCompat.getColor(context , R.color.main_color)
 
         holder.taskTitle.text = task.taskTitle
-        holder.taskDate.text = task.date
+        val date = Date(task.date)
+        val formatedDate = SimpleDateFormat("dd/MM/yyyy" , Locale.getDefault()).format(date)
+        holder.taskDate.text = formatedDate
 
         holder.checkbtn.setOnClickListener { updateDataCheck( position) }
         holder.deleteTaskBtnImage.setOnClickListener { deleteTaskItem(task) }
