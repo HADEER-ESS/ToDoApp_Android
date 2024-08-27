@@ -71,4 +71,11 @@
     <style name="spinner_text_style">
         <item name="android:fontFamily">@font/poppins_regular</item>
     </style>
+
+<!--    Input placeholder editText style-->
+    <style name="Text_20_regular_black">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/add_task_title</item>
+    </style>
 </resources>

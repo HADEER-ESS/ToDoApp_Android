@@ -11,6 +11,10 @@ import com.example.todoapp.database.Task
 import com.example.todoapp.database.TaskDatabase
 import com.example.todoapp.database.TaskViewModel
 import com.example.todoapp.databinding.FragmentEditScreenBinding
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.Date
+import java.util.Locale
 
 class EditScreenFragment : Fragment() {
     private lateinit var binding: FragmentEditScreenBinding
@@ -38,12 +42,17 @@ class EditScreenFragment : Fragment() {
 
     private fun initalizeFragment() {
         //create instance of task data
-        val taskDataBase = TaskDatabase.getInstance(requireContext())
-        val taskDao = taskDataBase.taskDao()
-        taskViewModel = TaskViewModel(taskDao)
-//        arguments?.let {
-//            incomeTaskData = it?.getParcelable("task_data")!!
-//        }
-//        println("income parceable data $incomeTaskData")
+//        val taskDataBase = TaskDatabase.getInstance(requireContext())
+//        val taskDao = taskDataBase.taskDao()
+//        taskViewModel = TaskViewModel(taskDao)
+        arguments?.let {
+            incomeTaskData = it?.getParcelable("task_data")!!
+        }
+        binding.editTaskTitleEdt.hint = incomeTaskData.taskTitle
+        binding.editTaskDetailsEdt.hint = incomeTaskData.taskDetails
+        val date = Date(incomeTaskData.date)
+        val stringFormDate = SimpleDateFormat("dd/MM/yyyy" , Locale.getDefault()).format(date)
+        binding.selectedDateTv.text = stringFormDate
+//        println("income parceable data $stringFormDate")
     }
 }

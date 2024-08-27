@@ -11,6 +11,8 @@
     <string name="enter_your_task_title">أدخل عنوان المهمة</string>
     <string name="select_date">اختر التاريخ</string>
     <string name="done_txt">تم !</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="save_changes">Save Changes</string>
 
     <!--    Language Spinner Text-->
     <string-array name="language_array">
