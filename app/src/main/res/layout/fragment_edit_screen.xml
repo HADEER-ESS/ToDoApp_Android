@@ -1,14 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".appstack.EditScreenFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constain_scrren_ly"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello, edit blank fragment" />
+        >
 
-</FrameLayout>
+        <View
+            android:id="@+id/top_blue_view"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/main_color"
+            />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/edited_task_container_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginHorizontal="28dp"
+            android:background="@color/white"
+            app:cardCornerRadius="15dp"
+            android:elevation="5dp"
+            >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:id="@+id/card_main_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/edit_task"
+                    android:textAlignment="center"
+                    style="@style/text_18_bold_title"
+                    android:layout_marginVertical="20dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <!--        Task Title Edit Text -->
+                <EditText
+                    android:id="@+id/edit_task_title_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="14dp"
+                    android:layout_marginTop="31dp"
+                    android:textAlignment="viewStart"
+                    style="@style/Text_20_regular_black"
+                    app:layout_constraintTop_toBottomOf="@id/card_main_title"
+                    />
+
+                <!--        Task Details Edit Text-->
+                <EditText
+                    android:id="@+id/edit_task_details_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="14dp"
+                    android:layout_marginTop="31dp"
+                    android:textAlignment="viewStart"
+                    style="@style/Text_20_regular_black"
+                    app:layout_constraintTop_toBottomOf="@id/edit_task_title_edt"
+                    />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/edit_task_date_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/edit_task_details_edt"
+                    app:layout_constraintTop_toBottomOf="@id/edit_task_details_edt"
+                    android:text="@string/select_date"
+                    android:layout_marginTop="12dp"
+                    android:textAlignment="center"
+                    android:background="@color/transparent"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/selected_date_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/edit_task_date_btn"
+                    app:layout_constraintStart_toEndOf="@id/edit_task_date_btn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    style="@style/text_18_regular_title"
+                    android:textColor="@color/text_input_hint"
+                    tools:text="27-6-2021"
+                    />
+
+                <!--            Change confirm button-->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/confirm_task_change_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/selected_date_tv"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginHorizontal="45dp"
+                    android:layout_marginVertical="120dp"
+                    android:text="@string/save_changes"
+                    android:textColor="@color/white"
+                    style="@style/text_18_regular_title"
+                    android:background="@drawable/save_task_change_btn_background"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
+
