@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#141922</color>
+    <color name="black">#ffffff</color>
+    <color name="add_task_title">#ffffff</color>
     <color name="setting_title">#FFFFFF</color>
     <color name="main_color">#5D9CEC</color>
     <color name="done_green">#61E757</color>

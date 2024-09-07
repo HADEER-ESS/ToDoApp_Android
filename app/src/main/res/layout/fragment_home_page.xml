@@ -37,6 +37,20 @@
         </LinearLayout>
 
     </FrameLayout>
+    <ImageView
+        android:id="@+id/empty_state_tasks_img"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintWidth_percent="0.5"
+        android:adjustViewBounds="true"
+        android:visibility="gone"
+        android:src="@drawable/empty_state_tasks"
+        app:layout_constraintTop_toBottomOf="@id/calender_top_frame"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasks_recycler_view"
         android:layout_width="match_parent"
