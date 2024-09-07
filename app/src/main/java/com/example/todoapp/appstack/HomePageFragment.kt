@@ -91,6 +91,13 @@ class HomePageFragment : Fragment() , OnItemClicklisnter {
         taskViewModel.getTaskByDate(dateMili)?.observe(viewLifecycleOwner){
             tasks ->
             println("selected date tasks data $tasks")
+            if(tasks.isEmpty()){
+                tasksRecyclerView.visibility = View.GONE
+                binding.emptyStateTasksImg.visibility = View.VISIBLE
+            }else{
+                tasksRecyclerView.visibility = View.VISIBLE
+                binding.emptyStateTasksImg.visibility = View.GONE
+            }
             tasksShowAdaptor.submitList(tasks)
         }
 
