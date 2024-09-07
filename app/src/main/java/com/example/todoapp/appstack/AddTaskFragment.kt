@@ -68,9 +68,9 @@ class AddTaskFragment : BottomSheetDialogFragment() {
             dismiss()
         }
 
-        taskTitle.setOnFocusChangeListener { v, hasFocus -> taskTitleHanlde(hasFocus) }
+        taskTitle.doAfterTextChanged {taskTitleHanlde() }
 
-        taskDescription.setOnFocusChangeListener { v, hasFocus -> taskDescriptionHandle(hasFocus) }
+        taskDescription.doAfterTextChanged { taskDescriptionHandle() }
 
         taskData.setOnClickListener { taskDateSelection() }
     }
@@ -97,19 +97,18 @@ class AddTaskFragment : BottomSheetDialogFragment() {
 
     }
 
-    fun taskTitleHanlde(focus : Boolean){
-        if(!focus && taskTitle.text.isNullOrBlank()){
+    fun taskTitleHanlde(){
+        if(taskTitle?.text?.length == 0){
             binding.taskTitleLy.error = "Please Enter Task"
         }
         else{
             binding.taskTitleLy.error = null
             taskName = taskTitle.text.toString()
-//            println("something $taskName")
         }
     }
 
-    fun taskDescriptionHandle(focus: Boolean){
-        if(binding.taskDetailsInput.text.isNullOrBlank()){
+    fun taskDescriptionHandle(){
+        if(taskDescription.text?.length == 0){
             taskDetails = ""
         }
         else{

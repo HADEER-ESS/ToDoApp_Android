@@ -24,7 +24,11 @@
         android:id="@+id/editScreenFragment"
         android:name="com.example.todoapp.appstack.EditScreenFragment"
         android:label="fragment_edit_screen"
-        tools:layout="@layout/fragment_edit_screen" />
+        tools:layout="@layout/fragment_edit_screen" >
+        <action
+            android:id="@+id/action_editScreenFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.example.todoapp.appstack.SettingFragment"
