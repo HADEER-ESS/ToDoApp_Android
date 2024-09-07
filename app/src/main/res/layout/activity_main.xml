@@ -22,7 +22,7 @@
             android:id="@+id/stack_toolbar"
             android:background="@color/main_color"
             app:elevation="0dp">
-
+<!--            style="@style/bottom_app_bar_background"-->
             <TextView
                 android:id="@+id/main_title_tv"
                 android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
         android:layout_width="match_parent"
-        style="@style/bottom_app_bar_background"
+
         android:layout_height="60dp"
         android:layout_gravity="bottom"
         app:fabAnchorMode="cradle"
@@ -54,7 +54,7 @@
             android:layout_gravity="bottom"
             android:layout_margin="0dp"
             android:clipToPadding="true"
-            app:backgroundTint="@android:color/transparent"
+            android:backgroundTint="@color/transparent"
             app:elevation="0dp"
             app:itemActiveIndicatorStyle="@null"
             app:itemBackground="@null"
