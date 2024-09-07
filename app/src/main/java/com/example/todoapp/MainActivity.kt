@@ -1,29 +1,15 @@
 package com.example.todoapp
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.Menu
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.todoapp.appstack.AddTaskFragment
-import com.example.todoapp.database.Task
-import com.example.todoapp.database.TaskDatabase
 import com.example.todoapp.databinding.ActivityMainBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.Locale
-import kotlin.reflect.typeOf
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -41,10 +27,8 @@ class MainActivity : AppCompatActivity() {
         binding.fabAddTask.setOnClickListener {
             handleAddTaskView()
         }
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
-
-
     private fun handleBottomTabsNavigation() {
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -65,12 +49,9 @@ class MainActivity : AppCompatActivity() {
                     }
                     true
                 }
-
-                else -> {
-                    false
-                }
-
+                else -> false
             }
+//            return super.onOptionsItemSelected(menuItem.itemId)
         }
     }
 
