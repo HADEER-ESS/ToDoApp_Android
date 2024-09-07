@@ -39,5 +39,5 @@ class SplashActivity : AppCompatActivity() {
 // -change selected date container text color on user selection     =>  (DONE)
 // -prevent user from select old date (from today)      =>  (DONE)
 // -finish Edit Task screen view        =>  (DONE)
-// -apply functionality for Edit Tasks Screen
+// -apply functionality for Edit Tasks Screen       =>  (DONE)
 // ) //
