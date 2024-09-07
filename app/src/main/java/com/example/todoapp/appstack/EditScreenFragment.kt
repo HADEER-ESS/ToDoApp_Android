@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.todoapp.R
 import com.example.todoapp.database.Task
 import com.example.todoapp.database.TaskDatabase
@@ -31,7 +34,7 @@ class EditScreenFragment : Fragment() {
 
     private var taskId : Int = 0
     private var taskTitle : String = ""
-    private var tasDetails : String? = ""
+    private var taskDetails : String? = ""
     private var taskDate : Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,30 +56,30 @@ class EditScreenFragment : Fragment() {
         initalizeFragment()
 
 //        Task Title Click Listener
-        binding.editTaskTitleEdt.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
-            updateTaskTitle(hasFocus)
-        }
+        binding.editTaskTitleEdt.doAfterTextChanged {  updateTaskTitle()}
+//        binding.editTaskTitleEdt.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+//            updateTaskTitle(hasFocus)
+//        }
 
 //        Task Details Click Listener
-        binding.editTaskDetailsEdt.onFocusChangeListener = View.OnFocusChangeListener{ _, hasFocus -> updateTaskDetails(hasFocus)}
+        binding.editTaskDetailsEdt.doAfterTextChanged { updateTaskDetails() }
+//        binding.editTaskDetailsEdt.onFocusChangeListener = View.OnFocusChangeListener{ _, hasFocus ->
+//            updateTaskDetails(hasFocus)
+//        }
 
 //        Task Date Click Listener
-        binding.editTaskDateBtn.setOnClickListener { resetTaskDate()}
+        binding.editTaskDateBtn.setOnClickListener { resetTaskDate() }
 
 //        save button click action
         binding.confirmTaskChangeBtn.setOnClickListener { updateTaskData()}
     }
 
-    private fun updateTaskTitle(focus : Boolean){
-        if(!focus){
-            taskTitle = binding.editTaskTitleEdt.text.toString()
-        }
+    private fun updateTaskTitle(){
+        taskTitle = binding.editTaskTitleEdt.text.toString()
     }
 
-    private fun updateTaskDetails(isFocus : Boolean) {
-        if(!isFocus){
-            tasDetails =  binding.editTaskDetailsEdt.text.toString()
-        }
+    private fun updateTaskDetails() {
+        taskDetails =  binding.editTaskDetailsEdt.text.toString()
     }
 
     private fun resetTaskDate() {
@@ -117,10 +120,12 @@ class EditScreenFragment : Fragment() {
     }
 
     private fun updateTaskData() {
-        println("task new Title $taskTitle")
-        println("task new details $tasDetails")
-        println("task new Date $taskDate")
-        taskViewModel.updateTaskInfo(Task(taskId , taskTitle , tasDetails , false , taskDate))
+//        println("task new Title $taskTitle")
+//        println("task new details $taskDetails")
+//        println("task new Date $taskDate")
+        taskViewModel.updateTaskInfo(Task(taskId , taskTitle , taskDetails , false , taskDate))
+        Toast.makeText(requireContext(), "Task update successfully!" , Toast.LENGTH_LONG).show()
+        findNavController().navigate(R.id.action_editScreenFragment_to_homePageFragment)
     }
 
     private fun initalizeFragment() {
@@ -128,16 +133,14 @@ class EditScreenFragment : Fragment() {
         arguments?.let {
             incomeTaskData = it?.getParcelable("task_data")!!
             taskTitle = incomeTaskData.taskTitle
-            tasDetails = incomeTaskData.taskDetails
+            taskDetails = incomeTaskData.taskDetails
             taskDate = incomeTaskData.date
             taskId = incomeTaskData.taskId
         }
 
-//        binding.editTaskTitleEdt.hint = taskTitle
         binding.editTaskTitleEdt.setText(taskTitle , TextView.BufferType.EDITABLE)
 
-//        binding.editTaskDetailsEdt.hint = taskDetails
-        binding.editTaskDetailsEdt.setText(tasDetails, TextView.BufferType.EDITABLE)
+        binding.editTaskDetailsEdt.setText(taskDetails, TextView.BufferType.EDITABLE)
 
         val date = Date(taskDate)
         val stringFormDate = SimpleDateFormat("dd/MM/yyyy" , Locale.getDefault()).format(date)
