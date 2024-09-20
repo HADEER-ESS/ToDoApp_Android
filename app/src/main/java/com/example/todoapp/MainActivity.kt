@@ -2,6 +2,7 @@ package com.example.todoapp
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
@@ -28,7 +29,23 @@ class MainActivity : AppCompatActivity() {
             handleAddTaskView()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        handleBottomTabApparance()
     }
+
+    private fun handleBottomTabApparance() {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when(destination.id){
+                R.id.editScreenFragment -> {
+                    binding.bottomNavigation.visibility = View.GONE
+                }
+                else -> {
+                    binding.bottomNavigation.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
     private fun handleBottomTabsNavigation() {
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
