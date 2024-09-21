@@ -55,9 +55,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginVertical="27dp"
-            app:layout_constraintEnd_toStartOf="@id/task_title_tv"
+            app:layout_constraintStart_toStartOf="parent"
             />
-
+<!--            app:layout_constraintEnd_toStartOf="@id/task_title_tv"-->
         <TextView
             android:id="@+id/task_title_tv"
             android:layout_width="wrap_content"
@@ -70,29 +70,32 @@
             app:layout_constraintStart_toEndOf="@id/card_mark_view"
             />
 
-        <ImageView
-            android:id="@+id/task_date_img"
+        <LinearLayout
+            android:id="@+id/task_date_ly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/task_date_icn"
-            android:layout_marginTop="18dp"
-            android:paddingStart="25dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="26dp"
             app:layout_constraintTop_toBottomOf="@id/task_title_tv"
-            app:layout_constraintEnd_toStartOf="@id/task_date_tv"
             app:layout_constraintStart_toEndOf="@id/card_mark_view"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            >
+            <ImageView
+                android:id="@+id/task_date_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/task_date_icn"
+                android:paddingEnd="8dp"
+                />
 
-        <TextView
-            android:id="@+id/task_date_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            app:layout_constraintTop_toTopOf="@id/task_date_img"
-            app:layout_constraintBottom_toBottomOf="@id/task_date_img"
-            app:layout_constraintStart_toEndOf="@id/task_date_img"
-            tools:text="12/12/2023"
-            />
+            <TextView
+                android:id="@+id/task_date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="12/12/2023"
+                />
+        </LinearLayout>
+
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/task_done_btn"
