@@ -1,7 +1,7 @@
 package com.example.todoapp.appstack
 
 import android.content.Context
-import android.content.Context.MODE_APPEND
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,9 +11,9 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import com.example.todoapp.MainActivity
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentSettingBinding
 
@@ -52,8 +52,8 @@ class SettingFragment : Fragment() {
 
 
     fun handleLanguageSpinner(){
-        val defaultLanguage = storedData.all["lang"] //English
-        println("default language is $defaultLanguage")//en
+        val localLanguage = AppCompatDelegate.getApplicationLocales()[0].toString()
+
         val spinnerLanguageData = resources.getStringArray(R.array.language_array)
 
         // Create an ArrayAdapter using the string array and a default spinner layout FOR LANGUAGE
@@ -61,11 +61,13 @@ class SettingFragment : Fragment() {
         languageAdapter.setDropDownViewResource(R.layout.custome_spinner_dropdown_item)
 
         languagesSpinner.adapter = languageAdapter
-        if(defaultLanguage == "en"){
+        if(localLanguage == "en"){
             languagesSpinner.setSelection(0)
         }else{
             languagesSpinner.setSelection(1)
         }
+
+        var firstTime = true
 
         languagesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
@@ -74,17 +76,26 @@ class SettingFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                languagesSpinner.setSelection(position)
-                if(spinnerLanguageData[position] == "English" || spinnerLanguageData[position] == "الانجليزية"){
-                    val editor = storedData.edit()
-                    editor.putString("lang" , "en")
-                    editor.apply()
-                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en"))
-                }else{
-                    val editor = storedData.edit()
-                    editor.putString("lang" , "ar")
-                    editor.apply()
-                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("ar"))
+                val changedValue: LocaleListCompat
+                println("inside lisnter " + spinnerLanguageData[position])
+                if(firstTime){
+                    firstTime = false
+                }
+                else{
+                    languagesSpinner.setSelection(position)
+                    if(spinnerLanguageData[position] == "English" || spinnerLanguageData[position] == "الانجليزية"){
+                        changedValue = LocaleListCompat.forLanguageTags("en")
+                    }else{
+                        changedValue = LocaleListCompat.forLanguageTags("ar")
+                    }
+                    println("changed language value ${changedValue[0]}")
+                    AppCompatDelegate.setApplicationLocales(changedValue)
+
+                    // Restart the activity to apply the language change
+                    val intent = Intent(requireContext(), MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                    activity?.finish()
                 }
             }
 

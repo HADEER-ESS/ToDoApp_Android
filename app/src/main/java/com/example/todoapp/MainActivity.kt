@@ -1,6 +1,6 @@
 package com.example.todoapp
 
-import android.content.SharedPreferences
+
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +10,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.todoapp.appstack.AddTaskFragment
 import com.example.todoapp.databinding.ActivityMainBinding
-import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -20,11 +19,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val fragment = supportFragmentManager.findFragmentById(binding.fragmentIncludeTag.navHostFragmentContainer.id)
         navController = fragment?.findNavController()!!
         handleBottomTabsNavigation()
 
-        storeApplicationSettingDefaults()
+        handleAppLocalization()
         binding.fabAddTask.setOnClickListener {
             handleAddTaskView()
         }
@@ -72,43 +72,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun storeApplicationSettingDefaults(){
-
-        val appMode = (
-                resources.configuration.uiMode and
-                        android.content.res.Configuration.UI_MODE_NIGHT_MASK
-                ) == android.content.res.Configuration.UI_MODE_NIGHT_YES
-
-        //appMode === false => Light mode
-        //appMode === true => dark mode
-
-        val sharedPreferences = getSharedPreferences("todoApp" , MODE_PRIVATE)
-        var appEditor : SharedPreferences.Editor;
-
-        if(!sharedPreferences.contains("lang")){
-            appEditor = sharedPreferences.edit()
-            appEditor.putString("lang" , Locale.getDefault().language)
-            appEditor.apply()
-        }else{
-            val lang = sharedPreferences.all["lang"].toString()
-            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(lang))
-        }
-        if(!sharedPreferences.contains("mode")){
-            appEditor = sharedPreferences.edit()
-            appEditor.putBoolean("mode" , appMode)
-            appEditor.apply()
-        }
-        else{
-            val mode = sharedPreferences.all["mode"].toString().toBoolean()
-            if(mode){
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-            else{
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-
-        }
-
+    private fun handleAppLocalization(){
+        val currentLanguage = AppCompatDelegate.getApplicationLocales()[0].toString()
+        println("application current language is $currentLanguage")
+        val localList = LocaleListCompat.forLanguageTags(currentLanguage)
+        AppCompatDelegate.setApplicationLocales(localList)
     }
 
     private fun handleAddTaskView(){

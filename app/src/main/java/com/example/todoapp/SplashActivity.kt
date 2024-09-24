@@ -1,20 +1,16 @@
 package com.example.todoapp
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
-import androidx.activity.enableEdgeToEdge
+
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.findNavController
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import com.example.todoapp.databinding.ActivitySplashBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySplashBinding
@@ -24,13 +20,19 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        handleAppLocalization()
         CoroutineScope(context = Dispatchers.Main).launch {
             delay(TIME_DELAY)
             val intent = Intent(this@SplashActivity , MainActivity::class.java)
             startActivity(intent)
-//            findNavController(R.id.nav_graph).navigate(R.id.action_splashActivity_to_homePageFragment)
         }
+    }
+
+    fun handleAppLocalization(){
+        val currentLanguage = AppCompatDelegate.getApplicationLocales()[0].toString()
+        println("application current language is $currentLanguage")
+        val localList = LocaleListCompat.forLanguageTags(currentLanguage)
+        AppCompatDelegate.setApplicationLocales(localList)
     }
 }
 
