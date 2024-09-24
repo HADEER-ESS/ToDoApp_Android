@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
 
-<!--       HERE      -->
+<!--       HERE  FOR SDK LOWER ANDROID 13    -->
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
             android:enabled="false"
