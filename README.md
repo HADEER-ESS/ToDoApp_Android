@@ -14,6 +14,7 @@
 <li>Calender (WeekCalendarView)</li>
 <li>Date Picker Dialog</li>
 <li>SwipeLayout</li>
+<li>Per-App Language preferences</li>
 <li>Mode</li>
 <li>Localization</li>
 <li>Room Databse</li>
